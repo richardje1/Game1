@@ -27,6 +27,9 @@ public class Game extends Canvas implements Runnable
     
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+    
+    //Screen Object field
+    public InputHandler input;
 
     public Game()
     {
@@ -51,6 +54,13 @@ public class Game extends Canvas implements Runnable
         frame.setVisible(true);
 
     }
+    
+    public void init()
+    {
+    	//Screen object declaration Screen(WIDTH, HEIGHT, new SpriteSheet(...));
+    	input = new InputHandler(this);
+    }
+    
     private synchronized void start()
     {
         running = true;
@@ -121,10 +131,22 @@ public class Game extends Canvas implements Runnable
     public void tick()
     {
         tickCount++;
-        // verify pixels work
-        for (int i = 0; i < pixels.length; i++)
+        
+        if(input.up.isPressed())
         {
-            pixels[i] = i + tickCount;
+        	//screen moves according to pressed key screen.yOffset--
+        }
+        if(input.down.isPressed())
+        {
+        	//screen.yOffset++
+        }
+        if(input.left.isPressed())
+        {
+        	//screen.xOffset--
+        }
+        if(input.right.isPressed())
+        {
+        	//screen.xOffset++
         }
     }
     public void render()
