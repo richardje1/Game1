@@ -28,6 +28,9 @@ public class Game extends Canvas implements Runnable
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
     
+    //6 shades of each primary color [RGB]
+    private int[] colours = new int[6*6*6];
+    
     //Screen Object field
     public InputHandler input;
 
@@ -57,6 +60,18 @@ public class Game extends Canvas implements Runnable
     
     public void init()
     {
+    	int index = 0;
+    	for (int r = 0; r < 6; r++){
+    		for (int g = 0; g < 6; g++){
+    			for (int b = 0; b < 6; b++){
+    				int rr = r * 255/5;
+    				int gg = g * 255/5;
+    				int bb = b * 255/5;
+    				
+    				colours[index++] = rr << 16 | gg << 8 | bb; 
+    			}
+    		}
+    	}
     	//Screen object declaration Screen(WIDTH, HEIGHT, new SpriteSheet(...));
     	input = new InputHandler(this);
     }
